@@ -1,20 +1,21 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := injectModule
-LOCAL_SRC_FILES := HookingEntry.cpp MethodHooker.cpp HookingFunction.cpp
+LOCAL_MODULE    := injectModule
+LOCAL_ARM_MODE	:= thumb
+LOCAL_LDLIBS	:= -L$(LOCAL_PATH)/jniLibs/armeabi-v7a -llog -landroid_runtime -lutils -lcutils -lart -ldvm
+LOCAL_CFLAGS	:= -std=gnu++11 -fpermissive -DDEBUG -O0
 
-LOCAL_ARM_MODE := arm
+LOCAL_C_INCLUDES :=  $(JNI_H_INCLUDE)  \
+                     $(LOCAL_PATH)/include
 
-LOCAL_CFLAGS    := -I./jni/include/ -I./jni/dalvik/vm/ -I./jni/dalvik -DHAVE_LITTLE_ENDIAN
-
-LOCAL_LDLIBS	:=	-L./jni/lib/  -L$(SYSROOT)/usr/lib -llog -ldvm -landroid_runtime  -lart -lutils -lcutils
-# LOCAL_LDLIBS += -L$(SYSROOT)/usr/lib -llog -lz
-
-LOCAL_STATIC_LIBRARIES := cpufeatures
-
+LOCAL_SRC_FILES := \
+	JavaHook/JavaMethodHook.cpp \
+	JavaHook/ArtMethodHook.cpp \
+	JavaHook/DalvikMethodHook.cpp \
+	JavaHook/art_quick_proxy.S \
+	ElfHook/elfhook.cpp \
+	ElfHook/elfio.cpp \
+	ElfHook/elfutils.cpp \
+	main.cpp
 include $(BUILD_SHARED_LIBRARY)
-
-
-$(call import-module,android/cpufeatures)
-

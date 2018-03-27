@@ -18,8 +18,7 @@
 #define ANDROID_CUTILS_ATOMIC_ARM_H
 
 #include <stdint.h>
-#include <cpu-features.h>
-// #include <machine/cpu-features.h>
+#include <machine/cpu-features.h>
 
 extern inline void android_compiler_barrier(void)
 {
