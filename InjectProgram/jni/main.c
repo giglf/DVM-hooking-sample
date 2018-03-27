@@ -69,7 +69,7 @@ pid_t FindPidByProcessName(const char *process_name)
 
 int main(int argc, char *argv[]) {
 	char InjectModuleName[MAX_PATH] = "/data/tmp/jni_hook/libinjectModule.so";    // 注入模块全路径
-	char RemoteCallFunc[MAX_PATH] = "hook_entry";              // 注入模块后调用模块函数名称
+	char RemoteCallFunc[MAX_PATH] = "HookEntry";              // 注入模块后调用模块函数名称
 	char InjectProcessName[MAX_PATH] = "tk.gifish.testhookwifiinfo";                      // 注入进程名称
 	
 	// 当前设备环境判断
