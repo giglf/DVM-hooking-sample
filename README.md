@@ -27,9 +27,13 @@ public void onClick(View view) {
 You can just get the release apk from the project directory.
 
 Then, my goal is hooking getMacAddress, let it shows the custom string instead of mac address.
-Using adb to push `InjectModule/libs/armeabi-v7a/libinjectModule.so` and `InjectProgram/libs/armeabi-v7a/inject` into `/data/tmp/jni_hook`.
-**Notification!! You have to push to the directory above. Because the .so file location have been written in source file. Or you can change it then using ndk-build to compile it manually.**
+Following the command below~
+``` shell
+adb push InjectModule/libs/armeabi-v7a/libinjectModule.so /data/tmp/jni_hook
+adb push InjectProgram/libs/armeabi-v7a/inject /data/tmp/jni_hook
+adb shell chmod 777 /data/tmp/jni_hook/inject
+adb shell /data/tmp/jni_hook/inject /data/tmp/jni_hook/libinjectModule.so HookEntry tk.gifish.testhookwifiinfo
+```
 
-After preparation, you should let TestHookWifiInfo launch and then run `/data/tmp/jni_hook/inject` in adb shell.
 Then press then button, you can see the screen printing `ahahahahah have been hooked!`.
 At the same time, you can see some log from android device monitor.
