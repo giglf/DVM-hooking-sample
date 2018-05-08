@@ -23,9 +23,10 @@ static jstring test(JNIEnv *env, jobject clazz)
 }
 
 HookInfo hookInfos[] = {
-		{"android/net/wifi/WifiInfo","getMacAddress","()Ljava/lang/String;",(void*)test, false}
+		// {"android/net/wifi/WifiInfo","getMacAddress","()Ljava/lang/String;",(void*)test, false},
 		//{"com/example/testar/MainActivity","test","()Ljava/lang/String;",(void*)test},
 		//{"android/app/ApplicationLoaders","getText","()Ljava/lang/CharSequence;",(void*)test}
+		{"android/os/ServiceManager", "getService", "(Ljava/lang/String;)Landroid/os/IBinder;", (void*)test, true}
 };
 
 // static JavaVM *javavm;
